@@ -1,0 +1,10 @@
+﻿namespace EquipmentCheckout.Domain.Entities
+{
+	public class EquipmentItem
+	{
+		public int Id { get; set; }
+		public string Name { get; set; }
+		public string Category { get; set; }
+		public bool IsActive { get; set; }
+	}
+}
