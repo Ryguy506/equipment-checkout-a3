@@ -1,0 +1,30 @@
+﻿@model List<EquipmentCheckout.Ui.ReadModels.HoldRow>
+
+<h2 class="mb-4">Hold Queue</h2>
+
+@if (!Model.Any())
+{
+    <p>No holds for this item.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Queue Position</th>
+                <th>Borrower</th>
+                <th>Date Placed</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var hold in Model)
+            {
+                <tr>
+                    <td>@hold.QueuePosition</td>
+                    <td>@hold.BorrowerName</td>
+                    <td>@hold.DatePlaced.ToShortDateString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -70,9 +70,11 @@ builder.Services.AddScoped<ICheckoutService, CheckoutService>();
 builder.Services.AddScoped<IEquipmentDao, EquipmentDao>();
 builder.Services.AddScoped<IBorrowerDao, BorrowerDao>();
 builder.Services.AddScoped<ILoanDao, LoanDao>();
+builder.Services.AddScoped<IHoldDao, HoldDao>();
 builder.Services.AddScoped<IEquipmentReadModelGateway, EquipmentReadModelGateway>();
 builder.Services.AddScoped<IBorrowerReadModelGateway, BorrowerReadModelGateway>();
 builder.Services.AddScoped<ILoanReadModelGateway, LoanReadModelGateway>();
+builder.Services.AddScoped<IHoldReadModelGateway, HoldReadModelGateway>();
 
 
 

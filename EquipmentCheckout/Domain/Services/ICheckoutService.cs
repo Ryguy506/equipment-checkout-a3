@@ -1,4 +1,5 @@
-﻿using EquipmentCheckout.Domain.Dtos.Requests;
+﻿using EquipmentCheckout.Domain.Dtos;
+using EquipmentCheckout.Domain.Dtos.Requests;
 using EquipmentCheckout.Domain.Dtos.Results;
 
 namespace EquipmentCheckout.Domain.Services
@@ -7,5 +8,6 @@ namespace EquipmentCheckout.Domain.Services
 	{
 		LoanResult CreateLoan(LoanRequest request);
 		bool ReturnLoan(int loanId, out string? error);
-	}
+        HoldResult PlaceHold(HoldRequest request);
+    }
 }

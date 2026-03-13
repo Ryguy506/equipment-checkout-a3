@@ -8,7 +8,8 @@ public class AppDbContext : DbContext
 	public DbSet<EquipmentItem> EquipmentItems => Set<EquipmentItem>();
 	public DbSet<Borrower> Borrowers => Set<Borrower>();
 	public DbSet<Loan> Loans => Set<Loan>();
-	public AppDbContext(DbContextOptions<AppDbContext> options)
+    public DbSet<Hold> Holds => Set<Hold>();
+    public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
     {
 
@@ -23,8 +24,9 @@ public class AppDbContext : DbContext
 		modelBuilder.Entity<Borrower>().ToTable("Borrowers");
 		modelBuilder.Entity<EquipmentItem>().ToTable("EquipmentItems");
 		modelBuilder.Entity<Loan>().ToTable("Loans");
+        modelBuilder.Entity<Hold>().ToTable("Holds");
 
-		modelBuilder.Entity<Borrower>()
+        modelBuilder.Entity<Borrower>()
 			.HasIndex(b => b.StudentNumber)
 			.IsUnique();
 		// TODO (students): configure mappings and constraints here (or use EF conventions).
