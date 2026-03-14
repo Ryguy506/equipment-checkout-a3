@@ -22,9 +22,12 @@
                     @(item.IsActive ? "Yes" : "No")
                 </td>
                 <td>
-                    <a href="/holds/create/@item.Id" class="btn btn-sm btn-warning">
-                        Hold Item
+                    <a asp-action="Create" asp-controller="Holds" asp-route-itemId="@item.Id" class="btn btn-sm btn-warning">
+                        Place Hold
                     </a>
+
+                    <a asp-action="Item" asp-controller="Holds" asp-route-itemId="@item.Id" class="btn btn-sm btn-info">View Holds</a>
+
                 </td>
             </tr>
         }

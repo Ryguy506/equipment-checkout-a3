@@ -12,17 +12,27 @@ namespace EquipmentCheckout.Ui.Controllers
         private readonly ICheckoutService _checkoutService;
         private readonly IBorrowerReadModelGateway _borrowerQueries;
         private readonly IHoldReadModelGateway _holdQueries;
-        private readonly ICheckoutService _service;
 
-        public HoldsController(ICheckoutService checkoutService, IBorrowerReadModelGateway borrowerQueries, IHoldReadModelGateway holdQueries, ICheckoutService service)
+        public HoldsController(ICheckoutService checkoutService, IBorrowerReadModelGateway borrowerQueries, IHoldReadModelGateway holdQueries)
         {
             _checkoutService = checkoutService;
             _borrowerQueries = borrowerQueries;
             _holdQueries = holdQueries;
-            _service = service;
+
         }
 
-        public IActionResult Create(int itemId)
+
+
+		[HttpGet]
+		public IActionResult Item (int itemId)
+        {
+            var holds = _holdQueries.GetHoldsForItem(itemId);
+            return View(holds);
+		}
+
+		[HttpGet]
+
+		public IActionResult Create(int itemId)
         {
             var borrowers = _borrowerQueries.GetBorrowers();
 
@@ -43,13 +53,13 @@ namespace EquipmentCheckout.Ui.Controllers
             var result = _checkoutService.PlaceHold(request);
 
             if (!result.Success)
-            {
-                ModelState.AddModelError("", result.Error);
+            {   
+				ModelState.AddModelError("", result.Error);
                 vm.Borrowers = _borrowerQueries.GetBorrowers();
                 return View(vm);
             }
 
-            return Redirect($"/holds/item/{vm.EquipmentItemId}");
+            return Redirect($"/holds/item?itemId={vm.EquipmentItemId}");
         }
     }
 }

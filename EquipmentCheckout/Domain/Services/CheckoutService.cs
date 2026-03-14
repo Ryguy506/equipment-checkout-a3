@@ -120,8 +120,6 @@ namespace EquipmentCheckout.Domain.Services
             if (item is null)
                 return HoldResult.Fail("Equipment item not found.");
 
-            if (_equipmentDao.IsOnActiveLoan(request.EquipmentItemId))
-                return HoldResult.Fail("Borrower already has this item on loan.");
 
             if (_holdDao.BorrowerHasHold(request.BorrowerId, request.EquipmentItemId))
                 return HoldResult.Fail("Borrower already has a hold on this item.");

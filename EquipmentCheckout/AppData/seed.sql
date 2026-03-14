@@ -3,6 +3,7 @@ PRAGMA foreign_keys = ON;
 DROP TABLE IF EXISTS Loans;
 DROP TABLE IF EXISTS Borrowers;
 DROP TABLE IF EXISTS EquipmentItems;
+DROP TABLE IF EXISTS Holds;
 
 CREATE TABLE EquipmentItems (
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -28,6 +29,18 @@ CREATE TABLE Loans (
     FOREIGN KEY (EquipmentItemId) REFERENCES EquipmentItems(Id),
     FOREIGN KEY (BorrowerId) REFERENCES Borrowers(Id)
 );
+
+
+Create TABLE Holds (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    EquipmentItemId INTEGER NOT NULL,
+    BorrowerId INTEGER NOT NULL,
+    DatePlaced TEXT NOT NULL,      
+    QueuePosition INTEGER NOT NULL,
+    FOREIGN KEY (EquipmentItemId) REFERENCES EquipmentItems(Id),
+    FOREIGN KEY (BorrowerId) REFERENCES Borrowers(Id)
+);
+
 
 CREATE INDEX IX_Loans_EquipmentItemId ON Loans(EquipmentItemId);
 CREATE INDEX IX_Loans_BorrowerId ON Loans(BorrowerId);
@@ -73,3 +86,11 @@ INSERT INTO Loans (EquipmentItemId, BorrowerId, LoanDate, DueDate, ReturnedDate)
 (3, 2, '2026-02-15', '2026-02-22', NULL),
 (4, 3, '2026-01-20', '2026-01-27', '2026-01-26'),
 (5, 4, '2026-01-25', '2026-02-01', '2026-01-31');
+
+
+INSERT INTO Holds (EquipmentItemId, BorrowerId, DatePlaced, QueuePosition) VALUES
+(1, 3, '2026-02-11', 1),
+(1, 4, '2026-02-12', 2),
+(2, 5, '2026-02-13', 1),
+(3, 6, '2026-02-14', 1),
+(4, 7, '2026-02-15', 1);
