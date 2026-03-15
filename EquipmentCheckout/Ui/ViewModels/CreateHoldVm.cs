@@ -8,5 +8,7 @@ namespace EquipmentCheckout.Ui.ViewModels
         public int BorrowerId { get; set; }
 		public string? ErrorMessage { get; set; }
 		public List<BorrowerOption> Borrowers { get; set; } = new();
-    }
+
+		public List<HoldRow> Holds { get; set; } = new();
+	}
 }

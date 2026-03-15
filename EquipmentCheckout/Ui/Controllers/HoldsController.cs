@@ -27,23 +27,17 @@ namespace EquipmentCheckout.Ui.Controllers
 		public IActionResult Item (int itemId)
         {
             var holds = _holdQueries.GetHoldsForItem(itemId);
-            return View(holds);
+			var borrowers = _borrowerQueries.GetBorrowers();
+			var vm = new CreateHoldVm
+			{
+				EquipmentItemId = itemId,
+				Borrowers = borrowers,
+				Holds = holds
+			};
+
+			return View(vm);
 		}
 
-		[HttpGet]
-
-		public IActionResult Create(int itemId)
-        {
-            var borrowers = _borrowerQueries.GetBorrowers();
-
-            var vm = new CreateHoldVm
-            {
-                EquipmentItemId = itemId,
-                Borrowers = borrowers
-            };
-
-            return View(vm);
-        }
 
         [HttpPost]
         public IActionResult Create(CreateHoldVm vm)
@@ -56,10 +50,11 @@ namespace EquipmentCheckout.Ui.Controllers
             {   
 				vm.ErrorMessage = result.Error;
 				vm.Borrowers = _borrowerQueries.GetBorrowers();
-                return View(vm);
+                vm.Holds = _holdQueries.GetHoldsForItem(vm.EquipmentItemId);
+				return View("Item" ,vm);
             }
 
-            return Redirect($"/holds/item?itemId={vm.EquipmentItemId}");
-        }
+			return RedirectToAction("Item", new { itemId = vm.EquipmentItemId });
+		}
     }
 }

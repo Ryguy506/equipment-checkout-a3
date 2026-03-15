@@ -1,8 +1,9 @@
-﻿@model List<EquipmentCheckout.Ui.ReadModels.HoldRow>
+﻿@model EquipmentCheckout.Ui.ViewModels.CreateHoldVm
+
 
 <h2 class="mb-4">Hold Queue</h2>
 
-@if (!Model.Any())
+@if (!Model.Holds.Any())
 {
     <p>No holds for this item.</p>
 }
@@ -17,7 +18,7 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var hold in Model)
+            @foreach (var hold in Model.Holds)
             {
                 <tr>
                     <td>@hold.QueuePosition</td>
@@ -28,3 +29,41 @@ else
         </tbody>
     </table>
 }
+
+<h2 class="mb-4">Place Hold</h2>
+
+@if (Model.ErrorMessage != null)
+{
+    <div class="alert alert-danger">
+        @Model.ErrorMessage
+    </div>
+}
+
+<form method="post" asp-action="Create" asp-controller="Holds">
+
+    <input type="hidden" asp-for="EquipmentItemId" />
+
+    <div class="mb-3">
+        <label class="form-label">Borrower</label>
+
+        <select asp-for="BorrowerId" class="form-select">
+            <option value="">Select Borrower</option>
+
+            @foreach (var b in Model.Borrowers)
+            {
+                <option value="@b.Id">
+                    @b.Name
+                </option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-warning">
+        Place Hold
+    </button>
+
+    <a href="/equipment" class="btn btn-secondary">
+        Cancel
+    </a>
+
+</form>
