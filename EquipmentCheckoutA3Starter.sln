@@ -4,6 +4,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EquipmentCheckout", "EquipmentCheckout\EquipmentCheckout.csproj", "{BF3358F7-34BC-4BF6-9F50-0D769E10EB72}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EquimpmentCheckout.Tests", "EquimpmentCheckoutTests\EquimpmentCheckout.Tests.csproj", "{C07B0D6D-B314-455C-8106-56A46B6A5518}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,6 +16,10 @@ Global
 		{BF3358F7-34BC-4BF6-9F50-0D769E10EB72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF3358F7-34BC-4BF6-9F50-0D769E10EB72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF3358F7-34BC-4BF6-9F50-0D769E10EB72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C07B0D6D-B314-455C-8106-56A46B6A5518}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C07B0D6D-B314-455C-8106-56A46B6A5518}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C07B0D6D-B314-455C-8106-56A46B6A5518}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C07B0D6D-B314-455C-8106-56A46B6A5518}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
