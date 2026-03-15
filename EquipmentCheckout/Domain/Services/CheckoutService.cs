@@ -21,8 +21,37 @@ namespace EquipmentCheckout.Domain.Services
 			_holdDao = holdDao;
 		}
 
+
+
+		private void ExpirePendingPickups()
+		{
+			var today = DateTime.Today;
+			var expired = _loanDao.GetExpiredLoans(today);
+
+			foreach (var loan in expired)
+			{
+				_loanDao.MarkReturned(loan.Id, today);
+
+				var nextHold = _holdDao.GetFirstHoldForItem(loan.EquipmentItemId);
+				if (nextHold != null)
+				{
+					var newPending = new Loan
+					{
+						EquipmentItemId = loan.EquipmentItemId,
+						BorrowerId = nextHold.BorrowerId,
+						LoanDate = today,
+						DueDate = today.AddDays(2),
+						IsPendingPickup = true
+					};
+					_loanDao.Create(newPending);
+					_holdDao.Remove(nextHold.HoldId);
+				}
+			}
+		}
+
 		public LoanResult CreateLoan(LoanRequest request)
 		{
+			ExpirePendingPickups();
 			// Rule: duration 1..14
 			if (request.DurationDays < 1 || request.DurationDays > 14)
 				return LoanResult.Fail("Loan duration must be between 1 and 14 days.");
@@ -69,6 +98,7 @@ namespace EquipmentCheckout.Domain.Services
 
 		public bool ReturnLoan(int loanId, out string? error)
 		{
+			ExpirePendingPickups();
 			error = null;
 
 			var loan = _loanDao.FindById(loanId);
@@ -96,12 +126,14 @@ namespace EquipmentCheckout.Domain.Services
                     EquipmentItemId = loan.EquipmentItemId,
                     BorrowerId = nextHold.BorrowerId,
                     LoanDate = today,
-                    DueDate = today.AddDays(2)
-                };
+                    DueDate = today.AddDays(2),
+					IsPendingPickup = true
+				};
 
                 _loanDao.Create(pendingLoan);
 
-                _holdDao.Remove(nextHold.ItemId);
+                _holdDao.Remove(nextHold.HoldId);
+				
             }
 
             return true;
@@ -121,7 +153,13 @@ namespace EquipmentCheckout.Domain.Services
                 return HoldResult.Fail("Equipment item not found.");
 
 
-            if (_holdDao.BorrowerHasHold(request.BorrowerId, request.EquipmentItemId))
+			if (!_equipmentDao.IsOnActiveLoan(request.EquipmentItemId)) 
+				return HoldResult.Fail("Item is not currently on loan.");
+
+			if (_loanDao.BorrowerHasItemOnLoan(request.BorrowerId, request.EquipmentItemId))
+				return HoldResult.Fail("Borrower already has this item on loan.");
+
+			if (_holdDao.BorrowerHasHold(request.BorrowerId, request.EquipmentItemId))
                 return HoldResult.Fail("Borrower already has a hold on this item.");
 
             var queuePos = _holdDao.GetNextQueuePosition(request.EquipmentItemId);

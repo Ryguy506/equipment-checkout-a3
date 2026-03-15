@@ -9,6 +9,7 @@
 		public DateTime DueDate { get; set; }
 		public DateTime? ReturnedDate { get; set; }
 
+		public bool IsPendingPickup { get; set; } = false;
 		public Loan() { }
 	}
 }

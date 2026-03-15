@@ -6,5 +6,9 @@ namespace EquipmentCheckout.Domain.Daos
 		int Create(Loan loan);
 		Loan? FindById(int loanId);
 		void MarkReturned(int loanId, DateTime returnedDate);
+
+		bool BorrowerHasItemOnLoan(int borrowerId, int equipmentItemId);
+
+		List<Loan> GetExpiredLoans(DateTime today);
 	}
 }

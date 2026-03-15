@@ -54,8 +54,8 @@ namespace EquipmentCheckout.Ui.Controllers
 
             if (!result.Success)
             {   
-				ModelState.AddModelError("", result.Error);
-                vm.Borrowers = _borrowerQueries.GetBorrowers();
+				vm.ErrorMessage = result.Error;
+				vm.Borrowers = _borrowerQueries.GetBorrowers();
                 return View(vm);
             }
 

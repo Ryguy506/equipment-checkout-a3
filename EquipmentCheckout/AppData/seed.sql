@@ -26,6 +26,7 @@ CREATE TABLE Loans (
     LoanDate TEXT NOT NULL,      -- ISO-8601 (YYYY-MM-DD)
     DueDate TEXT NOT NULL,       -- ISO-8601 (YYYY-MM-DD)
     ReturnedDate TEXT NULL,      -- ISO-8601 (YYYY-MM-DD) or NULL
+    IsPendingPickup INTEGER DEFAULT 0,
     FOREIGN KEY (EquipmentItemId) REFERENCES EquipmentItems(Id),
     FOREIGN KEY (BorrowerId) REFERENCES Borrowers(Id)
 );

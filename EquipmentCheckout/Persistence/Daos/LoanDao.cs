@@ -36,5 +36,22 @@ namespace EquipmentCheckout.Persistence.Daos
 				_db.SaveChanges();
 			}
 		}
+
+		public bool BorrowerHasItemOnLoan(int borrowerId, int equipmentItemId)
+		{
+			return _db.Loans.Any(l => l.BorrowerId == borrowerId
+								   && l.EquipmentItemId == equipmentItemId
+								   && l.ReturnedDate == null);
+		}
+
+
+		public List<Loan> GetExpiredLoans(DateTime today)
+		{
+			return _db.Loans
+				.Where(l => l.IsPendingPickup == true
+						 && l.ReturnedDate == null
+						 && l.DueDate < today)
+				.ToList();
+		}
 	}
 }

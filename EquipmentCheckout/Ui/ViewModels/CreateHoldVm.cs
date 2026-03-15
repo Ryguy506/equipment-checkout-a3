@@ -6,6 +6,7 @@ namespace EquipmentCheckout.Ui.ViewModels
     {
         public int EquipmentItemId { get; set; }
         public int BorrowerId { get; set; }
-        public List<BorrowerOption> Borrowers { get; set; } = new();
+		public string? ErrorMessage { get; set; }
+		public List<BorrowerOption> Borrowers { get; set; } = new();
     }
 }

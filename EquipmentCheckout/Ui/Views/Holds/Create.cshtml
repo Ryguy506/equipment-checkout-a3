@@ -2,6 +2,13 @@
 
 <h2 class="mb-4">Place Hold</h2>
 
+@if (Model.ErrorMessage!= null)
+{
+    <div class="alert alert-danger">
+		@Model.ErrorMessage
+    </div>
+}
+
 <form method="post" asp-action="Create">
 
     <input type="hidden" asp-for="EquipmentItemId" />
