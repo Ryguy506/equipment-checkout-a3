@@ -1,34 +1,23 @@
-# Equipment Checkout (A3 Starter) - .NET 8 MVC
+# Equipment Checkout 
 
-This starter is intentionally **plumbing only**:
-- MVC is wired up.
-- SQLite DbContext is registered.
-- `AppData/` is included and copied to the output directory on build.
+## How to Run
 
-You are responsible for implementing Phase 1 features:
-- controllers/actions/views for the required screens
-- UI read models + UI read query interfaces
-- Domain entities, DTOs, services, DAOs (interfaces)
-- Persistence implementations (EF + DAO + read-model gateways)
-- domain rules and tests
+1. Clone the repository
+2. Open `EquipmentCheckout.sln` in Visual Studio
+3. Set `EquipmentCheckout` as the startup project
+4. Click Run
 
-## AppData
-- `AppData/equipment-checkout.db` : starter SQLite database
-- `AppData/seed.sql` : schema + seed data used to build the database
 
-The connection string is built at runtime from:
-`<ContentRoot>/AppData/equipment-checkout.db`
+## How to Seed Data
 
-## View locations
-Views are configured to live under:
-- `/Ui/Views/{Controller}/{View}.cshtml`
-- `/Ui/Views/Shared/{View}.cshtml`
+1. Open DB Browser for SQLite
+2. Click `Open Database` and select `AppData/equipment-checkout.db` 
+3. Go to the `Execute SQL` tab
+4. Open `AppData/seed.sql` 
+5. Click `Execute` to run the script
 
-(So you do not need a top-level `/Views` folder.)
 
-## Next steps (students)
-- Add your entities under `Domain/Entities`
-- Add your DbSet<T> properties in `Persistence/Ef/AppDbContext.cs`
-- Create DAO interfaces in `Domain/Daos` and implement them in `Persistence/Daos`
-- Create read query interfaces in `Ui/Queries` and implement them in `Persistence/Queries`
-- Keep controllers thin: call Domain services for POST/commands; use query gateways for GET screens.
+## How to Run Tests
+
+2. Open Test Explorer: `Test -> Test Explorer`
+3. Click `Run All`

@@ -1,4 +1,5 @@
 using EquipmentCheckout.Domain.Services;
+using EquipmentCheckout.Domain.Dtos.Requests;
 using EquipmentCheckout.Domain.Dtos;
 
 public class CheckoutServiceTests
